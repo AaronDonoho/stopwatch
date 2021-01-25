@@ -1,0 +1,11 @@
+.RHistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+.Renviron
+library/
+lock/
+python/
+staging/
+/.project
