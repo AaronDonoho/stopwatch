@@ -1,0 +1,15 @@
+input, #counter, #controls {
+  text-align: center;
+  margin: auto;
+}
+
+.shiny-input-container {
+  margin: auto;
+}
+#counter {
+  font-size: 50px;
+}
+
+#controls {
+  width: 50%;
+}
