@@ -23,19 +23,16 @@ ui <- fluidPage(
         tags$fieldset(
             tags$legend("Set to"),
             textInput("value", label = NULL, value = "0"),
-            br(),
             actionButton("setto", "set value")
         ),
         tags$fieldset(
             tags$legend("Speed"),
             textInput("speed", label = NULL, value = "1000"),
-            br(),
             actionButton("setspeed", "set speed"),
         ),
         tags$fieldset(
             tags$legend("Increase"),
             textInput("increase", label = NULL, value = "1"),
-            br(),
             actionButton("setincrease", "set increase")
         )
     )
@@ -50,6 +47,13 @@ server <- function(input, output) {
     delta = reactiveVal(1)
     active = reactiveVal(FALSE)
     
+    output$outputcounter = renderUI({
+        div(
+            id = "counter",
+            value()
+        )
+    })
+    
     observe({
         invalidateLater(speed())
         isolate({
@@ -58,44 +62,14 @@ server <- function(input, output) {
         })
     })
     
-    observeEvent(input$start, {
-        active(TRUE)
-    })
-    
-    observeEvent(input$pause, {
-        active(FALSE)
-    })
-    
-    observeEvent(input$reset, {
-        value(0)
-    })
-    
-    observeEvent(input$countup, {
-        countup(TRUE)
-    })
-    
-    observeEvent(input$countdown, {
-        countup(FALSE)
-    })
-    
-    observeEvent(input$setto, {
-        value(as.numeric(input$value))
-    })
-    
-    observeEvent(input$setincrease, {
-        delta(as.numeric(input$increase))
-    })
-    
-    observeEvent(input$setspeed, {
-        speed(as.numeric(input$speed))
-    })
-    
-    output$outputcounter = renderUI({
-        div(
-            id = "counter",
-            value()
-        )
-    })
+    observeEvent( input$start,       { active(TRUE)                      } )
+    observeEvent( input$pause,       { active(FALSE)                     } )
+    observeEvent( input$reset,       { value(0)                          } )
+    observeEvent( input$countup,     { countup(TRUE)                     } )
+    observeEvent( input$countdown,   { countup(FALSE)                    } )
+    observeEvent( input$setto,       { value(as.numeric(input$value))    } )
+    observeEvent( input$setincrease, { delta(as.numeric(input$increase)) } )
+    observeEvent( input$setspeed,    { speed(as.numeric(input$speed))    } )
     
 }
 
